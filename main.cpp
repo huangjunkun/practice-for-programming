@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include <time.h>
-#include "SubUnit.h"
+#include "sub_unit.h"
 
 #
 int main(int argc, char* argv[])

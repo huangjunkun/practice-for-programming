@@ -375,6 +375,7 @@ class B
 {
 private:
     int iN; // Ë³ĞòÏà·´ ....
+//warning: 'testInitMemOrder::B::iM' will be initialized after|
     int iM;
 public:
     B() : iM(0), iN(iM) {}

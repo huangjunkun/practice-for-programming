@@ -1,0 +1,22 @@
+// 代码分享说明 //
+Hello!
+在此分享，存放一些C\C++测试性的学习代码。比较多部分内容与算法相关。
+该程序代码目的，针对C、C++面试的前期练习，做做练手准备。
+若你发现其中存在问题，随时联系本人，e-mail：huangjunkun@gmail.com！
+欢迎一起交流，互相学习。
+
+谢谢！
+---------
+1.
+
+/**
+** 源文件：main.cpp, main_buf.cpp, sub_unit.cpp, sub_unit.h
+** 功能说明：
+** 	main.cpp		--	运行于main函数的测试代码.
+	main_buf.cpp	--	缓存运行的代码.
+	sub_unit.*		--	测试类型，函数的声明及定义。
+	
+	详见代码。
+** 作者：junkun huang  e-mail：huangjunkun@gmail.com
+** 日期：2009-06-25 /
+*/

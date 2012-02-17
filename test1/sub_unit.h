@@ -38,7 +38,7 @@ char*   loopMoveStr(char* str, int steps);
 char*   loopMoveStr_(char* str, int steps);
 char*   strRotate(char* str, int steps);//call stl
 // --- 查找一个字符串中连续出现次数最多的子串--
-pair<int,string> find_most_substr(const string& str);
+pair<int,string> findMostSubstr(const string& str);
 // --- 模拟实现C++ 函数strstr(...)
 const char* strStr(const char* str, const char* substr);
 char* strStr(char* str, const char* substr);
@@ -413,11 +413,13 @@ public:
         iValue = c.iValue;
         return  *this;
     }
-};    /*
-    C   play(C c)
-    {
-        return c;
-    }   */
+};    
+/**/
+// C   make_c(C c)
+// {
+//     return c;
+// }
+
 struct  Play
 {
     C   operator() (C c)
@@ -521,10 +523,11 @@ T   partition(T first, T last, Comp comp) //
 template <typename T, class Comp >  //=less<T>
 T SearchNMax(T first, T last, std::size_t n, Comp comp) //
 {
-    if(first<last)
+    if(first < last)
     {
         T   pos = partition(first, last, comp);
         std::size_t index = distance(first, pos)+1;
+
         if(index==n)
             return pos;
         else if(index>n)

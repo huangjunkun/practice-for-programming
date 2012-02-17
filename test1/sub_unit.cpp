@@ -33,10 +33,12 @@ void	DoPermute(const string& in, string& out, bool used[], unsigned int level)
 void	Permute(const string&	str)
 {
     bool	*used = new bool[str.length()];
+	assert (used);
     for(unsigned int i=0; i<str.length(); i++)
         used[i] = false;
     string	out = "";
     DoPermute(str, out, used, 0);
+	delete[] used;
 }
 
 //---------------------------------------------------------------------------
@@ -264,7 +266,7 @@ char*   strRotate(char* str, int steps)//call stl
 }
 //---------------------------------------------------------------------------
 // --查找一个字符串中连续出现次数最多的子串-- ?????
-pair<int,string> findmostsubstr(const string& str)
+pair<int,string> findMostSubstr(const string& str)
 {
     vector<string>  substrs;
     int     maxcount=1, count=1;

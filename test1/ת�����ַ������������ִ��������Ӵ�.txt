@@ -1,0 +1,205 @@
+求一个字符串中连续出现次数最多的子串
+2009-08-06 10:58:38.0      来源:e800技术客
+关键词：  字符串     连续     子串  
+ 
+
+      赤峰
+
+    * 赤峰的文章
+    *
+
+      Visual C++ tr1中的shared_ptr和随机数
+
+      关于C语言中的无符号数和有符号数
+    * 简单的穷举效率太低，随着输入的文本增长，时间复杂度和空间复杂度就会火箭般窜升至无法接受的地步。
+
+      个人页面
+
+      登陆交谈
+
+ 
+
+问题描述：
+求一个字符串中连续出现次数最多的子串，子串的长度可以是 1 。
+
+分析问题：
+乍一看，好像无处下手。简单的穷举效率太低，随着输入的文本增长，时间复杂度和空间复杂度就会火箭般窜升至无法接受的地步。
+
+我们需要寻找规律。
+
+假设存在一个长度为 N 的子串 S 出现的次数最多。那么它具有哪些特点呢？
+
+S 的任一子串的出现次数不少于 S 的出现次数
+S 中不会出现重复的子串字符
+S 中不会出现重复的字符
+组成 S 的每一个字符、每一个子串的出现次数都和 S 一样
+“S 中不会出现重复的字符”，“组成 S 的每一个字符、每一个子串的出现次数都和 S 一样”！
+有了这个结论，问题就简单了。
+算法描述：
+找到文本中的出现次数最高的单个字符组成的子串，放入一个队列中，
+从队列的头部开始，对结果集中的每一个子串 S 进行处理
+找到文本中该子串出现的任意一个位置 P，
+判断文本中紧随 S 之后的字符 C 是否的出现次数是最多的，
+如果 C 的出现次数不是最多的，结束。
+如果 C 的出现次数是最多的，搜索文本中的每一个 S 并判断紧随其后的字符是否是 C，
+如果文本中的每一个 S 之后都存在字符 C ，将 S + C 生成的子串放入结果集中，
+如果文本中出现 S 之后的字符不是 C ，结束。
+如此，直至到达队列尾。
+
+代码：
+#pragma  warning(disable : 4786)
+#include  < iostream >
+#include  < string >
+#include  < deque >
+
+#define  BUFFSIZE 1024
+
+using  std::cout;
+using  std::endl;
+using  std:: string ;
+using  std::deque;
+
+typedef deque < string >  strlist;
+
+const   string ::size_type npos  =   - 1 ;
+const   string  ignoreChars( " \t\n\r " );
+
+inline bool  IgnoreChar( char  c){
+     return  (ignoreChars.find(c)  !=  npos);
+}
+
+/*
+ * 统计字符出现次数
+  */
+unsigned CharSummary( const   string &  text, unsigned usecount[],  int  tbllen){
+    unsigned count, i;
+
+    memset(usecount,  0 , tbllen  *   sizeof (unsigned));
+     for (i  =   0 ;i  <  text.length();usecount[unsigned(text[i ++ ])] ++ );
+
+     for (count  =  i  =   0 ;i  <   256 ;i ++ ){
+         if (IgnoreChar(i)) continue ;
+         if (usecount[i]  >  count)count  =  usecount[i];
+    }
+
+     return  count;
+}
+
+/*
+ * 试着增长字符串
+  */
+char  TryGrowthString( const   string &  text,  const   string &  str,  int  maxcount, unsigned *  usecount){
+     int  count;
+     string ::size_type pos;
+     char  c  =   0 ;
+
+    pos  =  text.find(str);
+     if (pos  ==  npos)
+         return   0 ;
+
+/*   不是出现次数最多的字符  */
+    c  =  text[pos  +  str.length()];
+     if (usecount[unsigned(c)]  <  maxcount)
+         return   0 ;
+
+/*   检查文本中的出现次数  */
+     for (count  =   0 ; pos  +  str.length()  +   1   <  text.length();pos  +=  str.length()){
+        pos  =  text.find(str, pos);
+         if (pos  ==  npos)  break ;
+         if (c  !=  text[pos  +  str.length()])  return   0 ;
+    }
+
+     return  c;
+}
+
+void  PrintResult( const  strlist &  result){
+    strlist::const_iterator citer;
+
+    cout << endl << " The result substrings : " << endl;
+    cout << " ------------------------------------- " << endl;
+     for (citer  =  result.begin(); citer  !=  result.end(); citer ++ ){
+        cout << ' " ' <<* citer << ' " ' << endl;
+    }
+    cout << " ------------------------------------- " << endl;
+    cout << " Total :  " << result.size() << endl;
+}
+
+void  main( void ){
+    unsigned usecount[ 256 ];
+     char  buffer[BUFFSIZE], c;
+    unsigned count, i;
+     string  text;
+    strlist result;
+
+/*
+ * 从 stdin 读入文本
+  */
+     while ( ! feof(stdin)){
+         if (fgets(buffer, sizeof (buffer),stdin))
+            text  +=  buffer;
+    }
+
+/*
+ * 统计字符出现次数
+  */
+    count  =  CharSummary(text, usecount,  sizeof (usecount)  /   sizeof ( * usecount));
+    cout << " Max count : " << count << endl;
+
+     if ( 0   ==  count){
+        cout << " There is empty string! " << endl
+             << " Bye! " << endl;
+    }
+
+/*
+ * 将出现次数最多的字符作为子串放入结果中
+  */
+     for (i  =   0 ;i  <   sizeof (usecount)  /   sizeof ( * usecount);i ++ ){
+         if (usecount[i]  ==  count)
+            result.push_back( string ( 1 , char (i)));
+    }
+
+/*
+ * 查找更多的子串
+  */
+     for (strlist::iterator iter  =  result.begin();iter  !=  result.end();iter ++ ){
+        c  =  TryGrowthString(text,  * iter, count, usecount);
+         if (c)
+            result.push_back( * iter  +   string ( 1 , c));
+    }
+
+    PrintResult(result);
+    cout << " Bye! " << endl;
+} 
+测试输入：
+
+abcdefg
+bcdef
+hijklmnopqrstabcdefg
+
+
+输出：
+
+Max count :3
+
+The result substrings :
+-------------------------------------
+"
+"
+"b"
+"c"
+"d"
+"e"
+"f"
+"bc"
+"cd"
+"de"
+"ef"
+"bcd"
+"cde"
+"def"
+"bcde"
+"cdef"
+"bcdef"
+-------------------------------------
+Total : 16
+Bye!

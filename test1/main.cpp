@@ -1,10 +1,14 @@
 //---------------------------------------------------------------------------
 
-
-#include <stdlib.h>
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 #include <functional>
 #include <time.h>
+//#include <stdint>
 #include "sub_unit.h"
+using namespace std;
 
 int main(int argc, char* argv[])
 {
@@ -71,6 +75,7 @@ int main(int argc, char* argv[])
     unsigned char b = ~a>>4;//先 >> 再 ~
     cout << " b = " << (int)b << "\n";
     }
+
     {
     float   a = 1.0f;
     cout << (int)a << "\n";
@@ -147,12 +152,14 @@ int main(int argc, char* argv[])
     cout << " FIND(student, id): " << FIND(student, id) << "\n";
     cout << " FIND(student, name): " << FIND(student, name) << "\n";
     cout << " FIND(student, value): " << FIND(student, value) << "\n";
-    }
 //---------------------------------------------------------------------------
     {// 预定义 声明一个常熟表示一年中有多少秒
+    #ifndef __int64
+    #define __int64 long long
+    #endif
     #define SECONDS_PER_YEAR  (((__int64)60)*60*24*356 )
     cout <<  " SECONDS_PER_YEAR = "<< SECONDS_PER_YEAR <<"\n";
-    cout << __int64(999999999999999)*2 << "\n";
+    //cout << __int64(999999999999999LL)*2 << "\n";
     }
 //---------------------------------------------------------------------------
     // --- const using namespace testConst;-------
@@ -278,6 +285,7 @@ int main(int argc, char* argv[])
     //Permute("1234");
     cout << " 字符串\"1234\" 的全组合\n";
     Combine("1234");
+    }
 //---------------------------------------------------------------------------
 // ---- 指针与引用 ----
     //cout << " ----------指针与引用 ---------------------\n";

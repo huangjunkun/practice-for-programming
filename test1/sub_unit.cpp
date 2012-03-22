@@ -2,10 +2,97 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <vector>
+#include <stack>
 #include "sub_unit.h"
 
-
+using namespace std;
 //---------------------------------------------------------------------------
+int calc_value_hex2uint(char ch)
+{
+    if ('0' <= ch && '9' >= ch)
+        return (ch - '0');
+    if ('a' <= ch && 'f' >= ch)
+        return (ch - 'a');
+    if ('A' <= ch && 'F' >= ch)
+        return (ch - 'A');
+
+    return -1;
+}
+bool hex2uint(const char* str, unsigned int& res)
+{
+    if (!(NULL != str && '0' == *str))
+        return false;
+    const char* next = str;
+    ++next;
+    if (!(NULL != next && '0' == *next))
+        return false;
+    unsigned int count = 0;
+    ++next;
+    while ('\0' != next)
+    {
+        int value = calc_value_hex2uint(*next);
+        if (-1 == value)
+            return false;
+        count *= 16;
+        count += value;
+    }
+    res = count;
+    return true;
+}
+
+void select_diff_set(vector<char>& all, vector<char>& part, vector<char>& diff_set)
+{
+    assert (all.size() >= part.size());
+    char mark[256] = {0};
+    memset(mark, 0, sizeof(mark));
+
+    for (size_t i =0; i < all.size(); ++i)
+        mark[(unsigned)all[i]] = 1;
+    for (size_t i =0; i < part.size(); ++i)
+        mark[(unsigned)part[i]] = 2;
+
+    for (size_t i =0; i < sizeof(mark); ++i)
+        if (1 == mark[i])
+            diff_set.push_back(i);
+    return;
+}
+struct treeT
+{
+  treeT* left;
+  treeT* right;
+  int    key;
+  treeT()
+  : left(0), right(0), key(0)
+  {}
+
+};
+
+void preorder_traversal(treeT* tree)
+{
+    if (NULL == tree)
+        return;
+
+    stack<treeT*> back_s;
+    back_s.push(tree);
+    while (!back_s.empty())
+    {
+        if (tree->left)
+        {
+            back_s.push(tree->left);
+            tree = tree->left;
+        }
+        else
+        {
+            printf("[key] %d", tree->key);
+            tree = back_s.top();
+            back_s.pop();
+            if (tree->right)
+                back_s.push(tree->right);
+        }
+    }
+}
+
 
 //×Ö·û´®µÄÈ«ÅÅÁÐ
 void	DoPermute(const string& in, string& out, bool used[], unsigned int level)

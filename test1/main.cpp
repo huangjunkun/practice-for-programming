@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <cstring>
 #include <functional>
+#include <algorithm>
+#include <iterator>
 #include <time.h>
 //#include <stdint>
 #include "sub_unit.h"
@@ -12,7 +14,37 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+    {
+    unsigned int res = 0;
+    cout << hex2uint(0, res);
+    cout << " res: " << res << "\n";
+    cout << hex2uint("", res);
+    cout << " res: " << res << "\n";
+    cout << hex2uint("0", res);
+    cout << " res: " << res << "\n";
+    cout << hex2uint("f", res);
+    cout << " res: " << res << "\n";
+    cout << hex2uint("0x", res);
+    cout << " res: " << res << "\n";
+    cout << hex2uint("0x1", res);
+    cout << " res: " << res << "\n";
+    cout << hex2uint("0xa", res);
+    cout << " res: " << res << "\n";
+    cout << hex2uint("0xa1", res);
+    cout << " res: " << res << "\n";
+    cout << "\n";
+    }
+    {
+    char a[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g' };
+    char b[] = { 'a', 'b', 'c' };
+    vector<char> a_vec(a, a+sizeof(a)/sizeof(char));
+    vector<char> b_vec(b, b+sizeof(b)/sizeof(char));
+    vector<char> c_vec;
+    select_diff_set(a_vec, b_vec, c_vec);
+    std::copy(c_vec.begin(), c_vec.end(), ostream_iterator<char>(std::cout, ""));
 
+    }
+    /*
 //---------------------------------------------------------------------------
     // --- 程序设计基本概念 ----
     // --- 赋值语句 ----
@@ -250,11 +282,11 @@ int main(int argc, char* argv[])
     printf("&b --->  0x%08x \n", &b);
     printf("&c --->  0x%08x \n", &c);
     // BCB : c(4字节) -- z中间相隔3 字节 -- b(占1字节)--a(4字节)
-    /*
-    &a --->  0x0013feb0 ------- 高位  +4字节
-    &b --->  0x0013feaf ------- 隔3字节 + 1字节
-    &c --->  0x0013fea8 ------- 低位  +4字节
-    */
+
+//    &a --->  0x0013feb0 ------- 高位  +4字节
+//    &b --->  0x0013feaf ------- 隔3字节 + 1字节
+//    &c --->  0x0013fea8 ------- 低位  +4字节
+
     cout << " sizeof(C1):" << sizeof(C1) << "\n";
     cout << " sizeof(C2):" << sizeof(C2) << "\n";
     cout << " sizeof(C3):" << sizeof(C3) << "\n";
@@ -298,16 +330,16 @@ int main(int argc, char* argv[])
     GetMemoryPtr(&str, 20);
     strcpy(str, "1 .hello, world! ");
     cout << str << "\n";
-    delete  str;   /* */
+    delete  str;
     GetMemoryRef(str, 20);
     strcpy(str, "2 .hello, world! ");
     cout << str << "\n";
     delete  str;
-    /*
-    int *ptr;
-    ptr = (int*)0x8000;
-    *ptr = 0xaaaa; // error
-    cout << *ptr << "\n";// error    */
+
+//    int *ptr;
+//    ptr = (int*)0x8000;
+//    *ptr = 0xaaaa; // error
+//    cout << *ptr << "\n";// error
     }
 	{
     cout << " ----------函数指针 ---------------------\n\n";
@@ -388,14 +420,14 @@ int main(int argc, char* argv[])
     printf("pb = %x \n", pb); // dangerous
     }
 //---------------------------------------------------------------------------
-    /*
-     {//test scanf ... float, loop ???
-     float f1, f2[2];
-     scanf("%f", &f1);
-     printf(" float f1 = %f\n", f1);
-     scanf("%f", &f2[0]);
-     printf(" f2[0] = %f\n", f2[0]);
-     }   */
+
+//     {//test scanf ... float, loop ???
+//     float f1, f2[2];
+//     scanf("%f", &f1);
+//     printf(" float f1 = %f\n", f1);
+//     scanf("%f", &f2[0]);
+//     printf(" f2[0] = %f\n", f2[0]);
+//     }
     {
         int     a[4][4];
         int**   iPPtr = (int**)a;// okokok

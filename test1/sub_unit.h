@@ -26,6 +26,22 @@
 
 using namespace std;
 //---------------------------------------------------------------------------
+// test 面试测试题
+
+bool hex2uint(const char* str, unsigned int& res);
+void select_diff_set(vector<char>& all, vector<char>& part, vector<char>& diff_set);
+
+struct treeT
+{
+  treeT* left;
+  treeT* right;
+  int    key;
+  treeT()
+  : left(0), right(0), key(0)
+  {}
+};
+
+void preorder_traversal(treeT* tree);
 // ------------ 函数声明 --------------------------
 //字符串的全排列
 void	Permute(const string& str);
@@ -413,7 +429,7 @@ public:
         iValue = c.iValue;
         return  *this;
     }
-};    
+};
 /**/
 // C   make_c(C c)
 // {

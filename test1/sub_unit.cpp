@@ -12,31 +12,34 @@ int calc_value_hex2uint(char ch)
 {
     if ('0' <= ch && '9' >= ch)
         return (ch - '0');
-    if ('a' <= ch && 'f' >= ch)
-        return (ch - 'a');
-    if ('A' <= ch && 'F' >= ch)
-        return (ch - 'A');
+    else if ('a' <= ch && 'f' >= ch)
+        return (ch - 'a') + 10;
+    else if ('A' <= ch && 'F' >= ch)
+        return (ch - 'A') + 10;
 
     return -1;
 }
+
 bool hex2uint(const char* str, unsigned int& res)
 {
     if (!(NULL != str && '0' == *str))
         return false;
     const char* next = str;
     ++next;
-    if (!(NULL != next && '0' == *next))
+    if (!(NULL != next && 'x' == *next))
         return false;
     unsigned int count = 0;
     ++next;
-    while ('\0' != next)
+    while ('\0' != *next)
     {
         int value = calc_value_hex2uint(*next);
         if (-1 == value)
             return false;
         count *= 16;
         count += value;
+        ++next;
     }
+    //cout << count << "\n";
     res = count;
     return true;
 }
@@ -57,16 +60,6 @@ void select_diff_set(vector<char>& all, vector<char>& part, vector<char>& diff_s
             diff_set.push_back(i);
     return;
 }
-struct treeT
-{
-  treeT* left;
-  treeT* right;
-  int    key;
-  treeT()
-  : left(0), right(0), key(0)
-  {}
-
-};
 
 void preorder_traversal(treeT* tree)
 {

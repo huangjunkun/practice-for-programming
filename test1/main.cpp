@@ -14,6 +14,18 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+    {/// test treeT ...
+    treeT nodes[] = { treeT(4), treeT(2), treeT(3), treeT(1), treeT(6), treeT(5), treeT(7)} ;
+    const unsigned nodes_size = sizeof(nodes) / sizeof(treeT);
+    cout << nodes_size << " [nodes_size]\n";
+    treeT* tree = &nodes[0];
+    insert_tree(tree, nodes+1, nodes_size-1);
+    bfs_tree(tree);
+    //dfs_tree(tree);
+    preorder_traversal_tree(tree);
+
+    }
+    /*
     {
     unsigned int res = 0;
     cout << hex2uint(0, res);
@@ -40,11 +52,18 @@ int main(int argc, char* argv[])
     vector<char> a_vec(a, a+sizeof(a)/sizeof(char));
     vector<char> b_vec(b, b+sizeof(b)/sizeof(char));
     vector<char> c_vec;
-    select_diff_set(a_vec, b_vec, c_vec);
+    select_diff_set1(a_vec, b_vec, c_vec);
     std::copy(c_vec.begin(), c_vec.end(), ostream_iterator<char>(std::cout, ""));
+    cout << "\n";
+    select_diff_set2(a_vec, b_vec, c_vec);
+    std::copy(c_vec.begin(), c_vec.end(), ostream_iterator<char>(std::cout, ""));
+    cout << "\n";
+    select_diff_set3(a_vec, b_vec, c_vec);
+    std::copy(c_vec.begin(), c_vec.end(), ostream_iterator<char>(std::cout, ""));
+    cout << "\n";
 
     }
-    /*
+    /**
 //---------------------------------------------------------------------------
     // --- 程序设计基本概念 ----
     // --- 赋值语句 ----
@@ -428,10 +447,10 @@ int main(int argc, char* argv[])
 //     scanf("%f", &f2[0]);
 //     printf(" f2[0] = %f\n", f2[0]);
 //     }
-    {
-        int     a[4][4];
-        int**   iPPtr = (int**)a;// okokok
-        //int**   iPPtr = a;//error
+    { /// just a test for C array and pointer.
+//    int     a[4][4];
+//    int**   iPPtr = (int**)a;// okokok
+//    int**   iPPtr = a;//error
     }
     {
         using namespace testBaiduStudy;
@@ -476,7 +495,7 @@ int main(int argc, char* argv[])
         //char *strstr(char *s1, const char *s2);              // C++ only
 
         //cout << " test--- strstr ---\n";
-        char *str1 = "Borland International", *str2 = "nation", *ptr;
+        const char *str1 = "Borland International", *str2 = "nation", *ptr;
         ptr = strstr(str1, str2);
         printf("The substring is: %s\n", ptr);
         ptr = strStr(str1, str2);
@@ -486,13 +505,14 @@ int main(int argc, char* argv[])
         }
 
     // --- 字符串 ----
-        {
-        //cout << " 数字流与数组声明\n";
-        //int     a1[];// error --a1[0],error
-        //int     n = 10, a2[n];//[C++ Error]  E2313 Constant expression required
-        int     a3[10+1] = { 0 };// okokok
-        //int     a4[3] = { 1,  2, 3, 4 };// error out越界
+        {   /// just a test for C array.
+//        cout << " 数字流与数组声明\n";
+//        int     a1[];// error --a1[0],error
+//        int     n = 10, a2[n];//[C++ Error]  E2313 Constant expression required
+//        int     a3[10+1] = { 0 };// okokok
+//        int     a4[3] = { 1, 2, 3, 4 };// error out越界
         }
+
         {
         using namespace testString;
         cout << " --查找一个字符串中连续出现次数最多的子串--\n";

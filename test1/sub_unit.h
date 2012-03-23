@@ -29,7 +29,9 @@ using namespace std;
 // test 面试测试题
 
 bool hex2uint(const char* str, unsigned int& res);
-void select_diff_set(vector<char>& all, vector<char>& part, vector<char>& diff_set);
+void select_diff_set1(vector<char>& all, vector<char>& part, vector<char>& diff_set);
+void select_diff_set2(vector<char>& all, vector<char>& part, vector<char>& diff_set);
+void select_diff_set3(vector<char>& all, vector<char>& part, vector<char>& diff_set);
 
 struct treeT
 {
@@ -39,9 +41,17 @@ struct treeT
   treeT()
   : left(0), right(0), key(0)
   {}
+  treeT(int k)
+  : left(0), right(0), key(k)
+  {}
 };
+void insert_tree(treeT* tree, treeT* nodes, size_t size);
+void insert_tree(treeT* tree, treeT& node);
 
-void preorder_traversal(treeT* tree);
+void bfs_tree(treeT* tree);
+void dfs_tree(treeT* tree);
+
+void preorder_traversal_tree(treeT* tree);
 // ------------ 函数声明 --------------------------
 //字符串的全排列
 void	Permute(const string& str);
@@ -387,6 +397,10 @@ public:
         cout << " A : iM = "<<iM << ", iN = " << iN << "\n";
     }
 };
+//||In constructor 'testInitMemOrder::B::B()':|
+//warning: 'testInitMemOrder::B::iM' will be initialized after|
+//warning:   'int testInitMemOrder::B::iN'|
+//warning:   when initialized here|
 class B
 {
 private:
@@ -520,7 +534,7 @@ struct TypeTrait<T*>
 };
 template <typename T,
 class Comp >  //=less<T>
-T   partition(T first, T last, Comp comp) //
+T do_partition(T first, T last, Comp comp) //
 {
     typename TypeTrait<T>::NoPtrResult temp = *first;
     --last;
@@ -541,7 +555,7 @@ T SearchNMax(T first, T last, std::size_t n, Comp comp) //
 {
     if(first < last)
     {
-        T   pos = partition(first, last, comp);
+        T   pos = do_partition(first, last, comp);
         std::size_t index = distance(first, pos)+1;
 
         if(index==n)

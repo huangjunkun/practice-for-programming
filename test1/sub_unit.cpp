@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <algorithm>
 #include <stack>
 #include "sub_unit.h"
 
@@ -43,9 +44,10 @@ bool hex2uint(const char* str, unsigned int& res)
     res = count;
     return true;
 }
-
-void select_diff_set(vector<char>& all, vector<char>& part, vector<char>& diff_set)
+/// 时间复杂度 O (m + n + k) -> O (N)
+void select_diff_set1(vector<char>& all, vector<char>& part, vector<char>& diff_set)
 {
+    diff_set.clear();
     assert (all.size() >= part.size());
     char mark[256] = {0};
     memset(mark, 0, sizeof(mark));
@@ -61,29 +63,133 @@ void select_diff_set(vector<char>& all, vector<char>& part, vector<char>& diff_s
     return;
 }
 
-void preorder_traversal(treeT* tree)
+/// bad：时间复杂度 O (n(log(n) + m * log(n)) -> O (N*log(N))
+void select_diff_set2(vector<char>& all, vector<char>& part, vector<char>& diff_set)
 {
-    if (NULL == tree)
-        return;
-
-    stack<treeT*> back_s;
-    back_s.push(tree);
-    while (!back_s.empty())
+    assert (all.size() >= part.size());
+    diff_set.clear();
+    std::sort(part.begin(), part.end());
+    for (size_t i = 0; i < all.size(); ++i)
     {
-        if (tree->left)
+        if(!std::binary_search(part.begin(), part.end(), all[i]))
+            diff_set.push_back(all[i]);
+    }
+
+}
+/// 蛮力法：时间复杂度 O (m * n) -> O (N^2)
+void select_diff_set3(vector<char>& all, vector<char>& part, vector<char>& diff_set)
+{
+    assert (all.size() >= part.size());
+    diff_set.clear();
+    for (size_t i = 0; i < all.size(); ++i)
+    {
+        size_t j = 0;
+        for (; j < part.size(); ++j)
+            if ( all[i] == part[j])
+            {
+                break;
+            }
+        if (part.size() == j)
+            diff_set.push_back(all[i]);
+    }
+}
+
+void insert_tree(treeT* tree, treeT* nodes, size_t size)
+{
+    for (size_t i = 0; i < size; ++i)
+    {
+        printf("insert_tree nodes.[key] %d\n", nodes[i].key);
+        insert_tree(tree, nodes[i]);
+    }
+}
+
+void insert_tree(treeT* tree, treeT& node)
+{
+    assert (tree);
+    treeT*& next = tree;
+    while (next)
+    {
+        if (next->key > node.key)
         {
-            back_s.push(tree->left);
-            tree = tree->left;
+            printf("next->left [key] %d\n", next->key);
+			if (!next->left)
+			{
+				next->left = &node;
+				break;
+			}
+			else
+				next = next->left;
         }
         else
         {
-            printf("[key] %d", tree->key);
-            tree = back_s.top();
-            back_s.pop();
-            if (tree->right)
-                back_s.push(tree->right);
+            printf("next->right [key] %d\n", next->key);
+
+			if (!next->right)
+			{
+				next->right = &node;
+				break;
+			}
+			else
+				next = next->right;
         }
     }
+}
+
+void bfs_tree(treeT* tree)
+{
+    if (!tree)
+        return;
+
+    deque<treeT*> deq_tree;
+    deq_tree.push_back(tree);
+
+    do
+    {
+        treeT* next = deq_tree.front();
+        deq_tree.pop_front();
+        printf("[key]%d ", next->key);
+        if (next->left)
+            deq_tree.push_back(next->left);
+        if (next->right)
+            deq_tree.push_back(next->right);
+    } while (!deq_tree.empty());
+    printf("\n");
+}
+
+
+void dfs_tree(treeT* tree)
+{
+    if (!tree)
+        return;
+
+    stack<treeT*> sta_tree;
+    sta_tree.push(tree);
+    treeT* next = tree;
+    do
+    {
+        if (next->left)
+        {
+            sta_tree.push(next->left);
+            next = next->left;
+        }
+        else
+        {
+            next = sta_tree.top();
+            sta_tree.pop();
+            printf("[key]%d ", next->key);
+            if (next->right)
+            {
+                sta_tree.push(next->right);
+                next = next->right;
+            }
+        }
+    } while (!sta_tree.empty());
+    printf("\n");
+}
+
+void preorder_traversal_tree(treeT* tree)
+{
+   dfs_tree(tree);
 }
 
 
@@ -298,7 +404,7 @@ char*   loopMoveStr_(char* str, int steps)//memcpy
 }
 // stl ... 循环左移，即逆时针循环
 template <class _ForwardIter> // ,  class _Distance
-_ForwardIter __rotate(_ForwardIter __first,
+_ForwardIter rotate_from_stl(_ForwardIter __first,
                       _ForwardIter __middle,
                       _ForwardIter __last,
 //                      _Distance*,
@@ -341,7 +447,7 @@ char*   strRotate(char* str, int steps)//call stl
     steps = -steps%length; // 变换steps 适应__rotate的循环左移
     if(steps<0)
         steps = length+steps;
-    __rotate(str, str+steps, str+length, forward_iterator_tag() );
+    rotate_from_stl(str, str+steps, str+length, forward_iterator_tag() );
     return  str;
 }
 //---------------------------------------------------------------------------

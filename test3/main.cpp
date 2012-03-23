@@ -136,7 +136,7 @@ int main(int argc,char* argv[])
         cout << " *lPtr = " << *lPtr << "\n";
     }
 ///*
-    {
+    { // Test std::string COW ok...
         string  str1 = "Hello, World ! ";
         string  str2 = str1;
         char*   cPtr1 = const_cast<char*>(str2.c_str() );

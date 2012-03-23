@@ -21,11 +21,14 @@ Hello!
 		 * 循环移动字符串 ;
 		 * 求N!的尾部连续0的个数;
 		 * 拷贝字符串, 螺旋队列问题;
-		 
+		 * 二叉树操作，包括有序插入，深度优先搜索（DFS），度优先搜索（BFS），前序遍历;
+		 * 十六进制字符串转为无符号整型数值;
+		 * 求两字符数值集合的差集。
 	test2/
 	[unit.h]
 		* 字符串类型MyString与String的定义与实现, 以及简单的字符串操作;
 		* C++类型多重继承与对象的运行时类型识别提醒, 如dynamic_cast关键字的使用.
+		
 	[unit2.h] [unit2.cpp]
 		* 判断该计算机采用大尾数法或小尾数法表示整数;
 		* 计算整数num 的二进制中“1”的个数;
@@ -39,13 +42,30 @@ Hello!
 		* 字符串的全排列;
 		* 字符串的全组合;
 		* 反转链表;
-		* 计算素数的多种解法;
+		* 计算素数的多种解法，比较不同解法的效率;
 		* Floyd 算法解决随机取样与随机排列的问题, 递归与非递归的解法;
 
 	[main.cpp]
+		* 控制CPU占用率-- 观察任务管理器
+		* 函数调用（参数）栈：
+			调用printf 函数 从右往左入栈；
+			调用cout << 函数 从右往左入栈
+		* C++中对象的运行时类型信息 {C++ 定义的关键字 typeid 和 dynamic_cast}
+		* 
 		
 	test3/
-	
+	[main.cpp][unit1.h unit1.cpp]
+		* 
+		* base64编解码实现与测试用例。
+		* const ptr and ptr const 常量指针与指针常量
+		* 几种排序算法template的简单写法，包括：
+			bubbleSort	--	ok
+			quickSort	-- 	ok
+			insertSort	--	ok
+			mergeSort	--	ok
+			heapSort	--	exist problem
+			shellSort	--	no implement
+		* 多线程下的 Loki ThreadModel 的应用 ----
 	... ...
 **	
 	详见对应源文件的代码设计。

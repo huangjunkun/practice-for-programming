@@ -236,7 +236,7 @@ bool    shellSort(T first, T last, Comp comp) //
 {
     if(distance(first, last)<0)
         return false;
-
+	// ... no implement ...
     return true;
 }
 

@@ -51,6 +51,7 @@ Hello!
 			调用printf 函数 从右往左入栈；
 			调用cout << 函数 从右往左入栈
 		* C++中对象的运行时类型信息 {C++ 定义的关键字 typeid 和 dynamic_cast}
+			Run-time type information (RTTI)
 		* 
 		
 	test3/

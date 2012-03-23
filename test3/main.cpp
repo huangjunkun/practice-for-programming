@@ -21,9 +21,9 @@
 
 using namespace std;
 
-// #include ".\lloki\SmartPtr.h"
-// #include ".\lloki\Typelist.h"
-// #include ".\lloki\HierarchyGenerators.h"
+#include ".\loki\SmartPtr.h"
+#include ".\loki\Typelist.h"
+#include ".\loki\HierarchyGenerators.h"
 
 #include "unit1.h"
 #include ".\loki\Threads.h"
@@ -122,8 +122,8 @@ int main(int argc,char* argv[])
         long**    lPtr;
         long     temp = 999;
         //cin >> temp;
-		lPtr = (long**)temp;
-		cout << " temp = " << temp << "\n";
+        lPtr = (long**)temp;
+        cout << " temp = " << temp << "\n";
         cout << " &temp = " << &temp << "\n";
         cout << " lPtr = " << lPtr << "\n";
         //cout << " *lPtr = " << *lPtr << "\n";//error
@@ -155,12 +155,12 @@ int main(int argc,char* argv[])
         __int64 ll = 1024 * 1024;
         ll = ll * 1024;
         ll = ll * 10; // ll = 10737418240
-        printf( "ll = %lld\n", ll );
+        printf( "ll = %I64d\n", ll );
 
-        __int64 ll2 = 1024 * 1024 * 1024 * 10; // ll2 = -2147483648 
-		__int64 ll3 = 1024LL * 1024 * 1024 * 10; // ll2 = ?? 
-		printf( "ll2 = %lld\n", ll2 );
-		printf( "ll3 = %lld\n", ll3 );
+        __int64 ll2 = 1024 * 1024 * 1024 * 10; // ll2 = -2147483648
+        __int64 ll3 = 1024LL * 1024 * 1024 * 10; // ll2 = ??
+        printf( "ll2 = %I64d\n", ll2 );
+        printf( "ll3 = %I64d\n", ll3 );
     }
 
 // /**
@@ -289,7 +289,8 @@ int main(int argc,char* argv[])
     }
 
 //---------------------------------------------------------------------------
-    /*
+    ///*
+    {
         // read an integer and a float from stdin
         int i = 999;
         float f = 99.9;
@@ -328,48 +329,50 @@ int main(int argc,char* argv[])
         cout.precision(6);
         // output f and goes back to fixed notation
         cout << f << fixed << endl;
-    //---------------------------------------------------------------------------
-    // --- 多线程下的 Loki ThreadModel 的应用 ----
-        {
-        cout << "  --- test Loki Thread ClassLevelLockable Lock ---\n";
-        LockType  str;
-        // 锁定变量 .... 不同方法锁定同一变量 str
-        HANDLE  Thread1 = CreateThread(NULL,0,LockMethod::setStrDigit,&str,0,NULL);
-        HANDLE  Thread2 = CreateThread(NULL,0,LockMethod::setStrAlpha,&str,0,NULL);
+    }
 
-        // 锁定方法 .... 同一方法锁定同一变量 str    PrintStr
-        HANDLE  Thread3 = CreateThread(NULL,0,TString::PrintStr,&str,0,NULL);
-        HANDLE  Thread4 = CreateThread(NULL,0,TString::PrintStr,&str,0,NULL);
-
-
-    //    for(int i=0; i<LOOP; i++)
-    //    {
-    //        str = "ABCDEFGHIJ";
-    //        cout << str << "\n";
-    //    }
-
-        WaitForSingleObject(Thread1, INFINITE);
-        WaitForSingleObject(Thread2, INFINITE);
-        WaitForSingleObject(Thread3, INFINITE);
-        WaitForSingleObject(Thread4, INFINITE);
-        CloseHandle(Thread1);
-        CloseHandle(Thread2);
-        CloseHandle(Thread3);
-        CloseHandle(Thread4);
-        }
-    ///*
-        {
-    //     cout << " --- test exception throw and deconstructor 异常与析构 ---\n";
-    //     try
-    //     {//
-    //     TestExcepDctor  test;
-    //     throw Exception("--- 异常与析构 ---");
-    //     }
-    //     catch(Exception& e)
-    //     {
-    //         cout << " catch : throw Exception(\"--- 异常与析构 ---\");\n";
-    //     }
-        }
+//    //---------------------------------------------------------------------------
+//    // --- 多线程下的 Loki ThreadModel 的应用 ----
+//    {
+//        cout << "  --- test Loki Thread ClassLevelLockable Lock ---\n";
+//        LockType  str;
+//        // 锁定变量 .... 不同方法锁定同一变量 str
+//        HANDLE  Thread1 = CreateThread(NULL,0,LockMethod::setStrDigit,&str,0,NULL);
+//        HANDLE  Thread2 = CreateThread(NULL,0,LockMethod::setStrAlpha,&str,0,NULL);
+//
+//        // 锁定方法 .... 同一方法锁定同一变量 str    PrintStr
+//        HANDLE  Thread3 = CreateThread(NULL,0,TString::PrintStr,&str,0,NULL);
+//        HANDLE  Thread4 = CreateThread(NULL,0,TString::PrintStr,&str,0,NULL);
+//
+//
+//        //    for(int i=0; i<LOOP; i++)
+//        //    {
+//        //        str = "ABCDEFGHIJ";
+//        //        cout << str << "\n";
+//        //    }
+//
+//        WaitForSingleObject(Thread1, INFINITE);
+//        WaitForSingleObject(Thread2, INFINITE);
+//        WaitForSingleObject(Thread3, INFINITE);
+//        WaitForSingleObject(Thread4, INFINITE);
+//        CloseHandle(Thread1);
+//        CloseHandle(Thread2);
+//        CloseHandle(Thread3);
+//        CloseHandle(Thread4);
+//    }
+//    ///*
+//    {
+//        cout << " --- test exception throw and deconstructor 异常与析构 ---\n";
+//        try
+//        {
+//            TestExcepDctor  test;
+//            throw Exception("--- 异常与析构 ---");
+//        }
+//        catch(Exception& e)
+//        {
+//            cout << " catch : throw Exception(\"--- 异常与析构 ---\");\n";
+//        }
+//    }
     //---------------------------------------------------------------------------
     ///*  **********************************************************  */
     cout << "\n\n\n\n       Hello, World !" << endl;

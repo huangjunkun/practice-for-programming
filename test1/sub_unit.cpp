@@ -53,9 +53,9 @@ void select_diff_set1(vector<char>& all, vector<char>& part, vector<char>& diff_
     memset(mark, 0, sizeof(mark));
 
     for (size_t i =0; i < all.size(); ++i)
-        mark[(unsigned)all[i]] = 1;
+        mark[(unsigned char)all[i]] = 1;
     for (size_t i =0; i < part.size(); ++i)
-        mark[(unsigned)part[i]] = 2;
+        mark[(unsigned char)part[i]] = 2;
 
     for (size_t i =0; i < sizeof(mark); ++i)
         if (1 == mark[i])

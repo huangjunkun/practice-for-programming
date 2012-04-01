@@ -85,10 +85,10 @@ int BinarySearch1(int array[], int lower, int upper, int target);
 int BinarySearch2(int array[], int lower, int upper, int target);
 //字符串的全排列
 //void DoPermute(const string& in, string out, bool used[], int level);
-void Permute(string	str);
+void Permute(const string& str);
 //字符串的全组合
 //void DoCombine(const string& in, string out, int level, int start);
-void Combine(string str);
+void Combine(const string& str);
 //---------------------------------------------------------------------------
 //  随机新建链表 N 个元素
 NodePtr		NewRandomList(int n );

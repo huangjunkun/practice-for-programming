@@ -321,8 +321,7 @@ void DoPermute(const string& in, string out, bool used[], int level)
 {
     if(level==in.length() )
     {
-        //cout << level <<endl;
-        cout << out <<endl;// result
+        cout << "[" << level << "] " << out << endl;// result
         return;
     }
     for(int i=0; i<in.length(); i++)
@@ -330,13 +329,11 @@ void DoPermute(const string& in, string out, bool used[], int level)
         if(used[i]==true)
             continue;
         //else
-        out.append(in, i, 1);// !!!!!!!!!!
+        out.append(in, i, 1);//
         used[i] = true;
         DoPermute(in, out, used, level+1);
         used[i] = false;
         out.erase(out.end()-1);
-        //out = out.substr(0, out.size()-1); //or
-        //system("pause");
     }
 
 }
@@ -347,6 +344,7 @@ void Permute(const string&	str)
         used[i] = false;
     string	out = "";
     DoPermute(str, out, used, 0);
+    delete[] used;
 }
 
 //---------------------------------------------------------------------------
@@ -359,7 +357,7 @@ void DoCombine(const string& in, string out, int level, int start)
         if(i<in.length()-1)
             DoCombine(in, out, level+1, i+1);
         else
-            cout << ( out.length()>1 ? out.c_str() : "" ) << endl;// result
+            cout << "[" << level << "] " << ( out.length()>1 ? out.c_str() : "" ) << endl;// result
         out.erase(out.end()-1);
     }
 }

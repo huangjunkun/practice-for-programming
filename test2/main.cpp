@@ -55,6 +55,11 @@ void printi(int i)
 int main(int argc, char* argv[])
 {
     {
+    Permute("12345");
+    Combine("12345");
+    }
+    /**
+    {
         cout << hex;
         unsigned char v;
         v = BIN_8(1,0,1,1,1,1,0,1);

@@ -26,13 +26,39 @@
 
 using namespace std;
 //---------------------------------------------------------------------------
-// test 面试测试题
+// Just a test for programming.
 
+/// * 双向链表的追加节点，删除节点，打印，删除（析构）等操作。
+struct b_node
+{
+  int       key;
+  b_node*   prev;
+  b_node*   next;
+
+  b_node()
+  : key(0), prev(0), next(0)
+  {}
+
+  b_node(int k)
+  : key(k), prev(0), next(0)
+  {}
+};
+typedef b_node* b_list;
+
+void print_list(b_node* list);
+void delete_list(b_node* list);
+b_node* push_back(b_node* list, b_node* node);
+b_node* push_back(b_node* list, b_node** nodes, size_t count);
+b_node* delete_node(b_node* node); /// b_node*& node
+
+/// * 十六进制字符串转为无符号整型数值;
 bool hex2uint(const char* str, unsigned int& res);
+/// * 求两字符数值集合的差集。
 void select_diff_set1(vector<char>& all, vector<char>& part, vector<char>& diff_set);
 void select_diff_set2(vector<char>& all, vector<char>& part, vector<char>& diff_set);
 void select_diff_set3(vector<char>& all, vector<char>& part, vector<char>& diff_set);
 
+/// * 二叉树操作，包括有序插入，深度优先搜索（DFS），度优先搜索（BFS），前序遍历;
 struct treeT
 {
   treeT* left;
@@ -52,6 +78,7 @@ void bfs_tree(treeT* tree);
 void dfs_tree(treeT* tree);
 
 void preorder_traversal_tree(treeT* tree);
+
 // ------------ 函数声明 --------------------------
 //字符串的全排列
 void	Permute(const string& str);

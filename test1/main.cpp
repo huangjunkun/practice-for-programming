@@ -14,6 +14,34 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+    {/// test b_node ...
+        const unsigned NODES_COUNT = 10;
+        b_node* nodes[NODES_COUNT];
+        for (unsigned i = 0; i < NODES_COUNT; ++i)
+        {
+            nodes[i] = new b_node(i);
+        }
+        b_node* list = new b_node(-1);/// head
+        push_back(list, nodes, NODES_COUNT);
+        print_list(list);
+        printf("delete_node head.\n");
+        list = delete_node(list);
+        print_list(list);
+        printf("delete_node tail.\n");
+        delete_node(nodes[NODES_COUNT-1]);
+        print_list(list);
+        printf("delete_node middle.\n");
+        delete_node(nodes[NODES_COUNT/2]);
+        print_list(list);
+
+
+        delete_list(list);
+        list = NULL;
+        printf("delete_list.\n");
+        print_list(list);
+    }
+
+    /***
     {/// test treeT ...
     treeT nodes[] = { treeT(4), treeT(2), treeT(3), treeT(1), treeT(6), treeT(5), treeT(7)} ;
     const unsigned nodes_size = sizeof(nodes) / sizeof(treeT);

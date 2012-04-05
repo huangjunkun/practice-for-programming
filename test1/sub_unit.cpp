@@ -9,6 +9,101 @@
 
 using namespace std;
 //---------------------------------------------------------------------------
+
+void print_list(b_node* list)
+{
+    while (list)
+    {
+        printf("[%d] <=> ", list->key);
+        list = list->next;
+    }
+    printf("null\n");
+}
+
+void delete_list(b_node* list)
+{
+    while (list)
+    {
+        b_node* tmp = list->next;
+        delete list;
+        list = tmp;
+    }
+}
+
+b_node* push_back(b_node* list, b_node* node)
+{
+    if (NULL == node)
+        return NULL;
+
+    while (list->next)
+        list = list->next;
+
+    b_node* prev = list;
+    prev->next = node;
+    node->prev = prev;
+    node->next = NULL;
+
+    //printf(" key [%d]\n", node->key);
+    return node;
+}
+
+b_node* push_back(b_node* list, b_node** nodes, size_t count)
+{
+    if (NULL == nodes || 0 == count)
+        return NULL;
+
+    b_node* last = push_back(list, nodes[0]);
+    assert (last);
+    for (size_t i = 1; i < count; ++i)
+    {
+        last->next = nodes[i];
+        nodes[i]->prev = last;
+        nodes[i]->next = NULL;
+        last = nodes[i];
+    }
+    return nodes[count - 1];
+}
+
+b_node* delete_node(b_node* node) /// b_node*& node
+{
+    if (NULL == node)
+        return NULL;
+
+    b_node* ret = NULL;
+    if (node->prev)
+    {
+        if (node->next)
+        {
+            b_node* prev = node->prev;
+            b_node* next = node->next;
+            next->prev = prev;
+            prev->next = next;
+            ret = next;
+        }
+        else
+        {
+            b_node* prev = node->prev;
+            prev->next = NULL;
+        }
+    }
+    else
+    {// NULL == (node->prev)
+
+        if (node->next)
+        {
+            b_node* next = node->next;
+            next->prev = NULL;
+            ret = next;
+        }
+        else {}
+    }
+
+     delete node;
+     node = NULL;
+     return ret;
+}
+
+
 int calc_value_hex2uint(char ch)
 {
     if ('0' <= ch && '9' >= ch)

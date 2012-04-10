@@ -54,7 +54,11 @@ void printi(int i)
 
 int main(int argc, char* argv[])
 {
+
+    TestPokerLicensing();
+    /***
     {
+    // test 全排列与全组合
     Permute("12345");
     Combine("12345");
     }

@@ -4,6 +4,7 @@
 
 
 #include <iostream>
+#include <cstdio>
 #include <algorithm>
 #include <vector>
 #include <string>
@@ -169,6 +170,37 @@ void Arrange(vector<T>& vecSet, T M, T N )
         else
             vecSet.insert(it, T(i));// t is in vecSet
     }
+}
+
+/// 随机派发集合元素
+template <typename T>
+void RandAssignElement(vector<T>& vecAll, vector<T>& vecRes)
+{
+    assert (!vecAll.empty());
+    if (vecAll.size() > 1)
+    {
+        vecRes.assign(vecAll.begin(), vecAll.end());
+        for (size_t i = vecRes.size(); i > 1; --i)
+        {
+            unsigned rand_i = rand() % i;
+            std::swap(vecRes[rand_i], vecRes[i-1]);
+        }
+    }
+
+}
+/// 扑克发牌
+static void TestPokerLicensing()
+{
+    vector<unsigned> vecAll(54);
+    for (size_t i = 0; i < vecAll.size(); ++i)
+        vecAll[i] = (i + 1);
+    vector<unsigned> vecRes;
+    RandAssignElement(vecAll, vecRes);
+
+    printf ("print vecRes:\n");
+    for (size_t i = 0; i < vecRes.size(); ++i)
+        printf(" %u", vecRes[i]);
+    printf ("\n");
 }
 //---------------------------------------------------------------------------
 #endif //_UNIT2_H_

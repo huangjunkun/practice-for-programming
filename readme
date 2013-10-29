@@ -55,6 +55,8 @@ Hello!
 		* C++中对象的运行时类型信息 {C++ 定义的关键字 typeid 和 dynamic_cast}
 			Run-time type information (RTTI)
 		* 
+	[test_sizeof_struct_mem_align]
+		实验struct结构体，内存对齐原理。
 		
 	test3/
 	[main.cpp][unit1.h unit1.cpp]

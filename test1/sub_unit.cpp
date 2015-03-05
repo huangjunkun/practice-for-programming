@@ -641,6 +641,115 @@ int FactorialCount0Num_2(int n)
     }
     return  count;
 }
+
+} /// testBaiduStudy
+
+
+/// guangzhou duoyi wangluo 游戏公司笔试编程题
+int str2int(const std::string& buffer )
+{
+    int value = 0;
+    if (buffer.empty())
+    {
+        std::cerr << "buffer is empty.\n";
+        return value;
+    }
+    int flag_value = 1;
+    size_t i = 0;
+    if (buffer[0] == '-')
+    {
+        flag_value = -1;
+        ++i;
+    }
+    for (; i < buffer.size(); ++i)
+    {
+        if (isdigit(buffer[i]))
+        {
+            value = value * 10 + (buffer[i] - '0');
+        }
+        else
+        {
+            std::cerr << "char is not digit.\n";
+            value = 0;
+            break;
+        }
+    }
+    value *= flag_value;
+    return value;
+}
+
+std::string find_longest_sequential_digit_substr(const std::string& buffer)
+{
+    std::string longest = "";
+    std::string sequential_digit_substr = "";
+    for (size_t i = 0; i < buffer.size(); ++i)
+    {
+        if (isdigit(buffer[i]))
+        {
+            char next_digit;
+            do
+            {
+                sequential_digit_substr.push_back(buffer[i]);
+                next_digit = buffer[i] + 1;
+                ++i;
+            } while(isdigit(buffer[i]) && i < buffer.size() && buffer[i] == next_digit);
+        }
+        else
+        {
+            continue;
+        }
+
+        if (sequential_digit_substr.size() > longest.size())
+        {
+            longest = sequential_digit_substr;
+        }
+        sequential_digit_substr.clear();
+    }
+    return longest;
+}
+
+int find_value_of_max_occur_count(std::vector<int>& nums)
+{
+    int ret = -1;
+    if (nums.size() == 1)
+    {
+        return nums[0];
+    }
+    if (nums.empty())
+    {
+        return ret;
+    }
+    std::sort(nums.begin(), nums.end());
+    size_t max_occur_count = 0, occur_count;
+    int max_occur_count_value;
+    int pred = nums[0];
+    occur_count = 1;
+    for (size_t i = 1; i < nums.size(); ++i)
+    {
+        if (nums[i] == pred)
+        {
+            ++occur_count;
+        }
+        else
+        {
+            if (occur_count > max_occur_count)
+            {
+                max_occur_count = occur_count;
+                max_occur_count_value = pred;
+            }
+            pred = nums[i];
+        }
+    }
+    if (occur_count > max_occur_count)
+    {
+        max_occur_count = occur_count;
+        max_occur_count_value = pred;
+    }
+    if (max_occur_count > nums.size()/2)
+    {
+        ret = max_occur_count_value;
+    }
+    return ret;
 }
 //---------------------------------------------------------------------------
 

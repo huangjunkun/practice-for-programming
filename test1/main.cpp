@@ -8,12 +8,46 @@
 #include <algorithm>
 #include <iterator>
 #include <time.h>
+#include <vector>
 //#include <stdint>
 #include "sub_unit.h"
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+    {
+        std::string buffer;
+        cout << "str2int=" << str2int("") << "\n";
+        cout << "str2int=" << str2int("123") << "\n";
+        cout << "str2int=" << str2int("-123") << "\n";
+        cout << "str2int=" << str2int("12a") << "\n";
+        buffer = "asdfa123sda12345678d23456789";
+        cout << "find_longest_sequential_digit_substr=" << find_longest_sequential_digit_substr(buffer) << "\n";
+        buffer = "asdfa1sda8d2";
+        cout << "find_longest_sequential_digit_substr=" << find_longest_sequential_digit_substr(buffer) << "\n";
+        buffer = "asdfasdf";
+        cout << "find_longest_sequential_digit_substr=" << find_longest_sequential_digit_substr(buffer) << "\n";
+
+        int nums[] = {1, 5, 2, 5, 5, 6, 5, 5};
+        std::vector<int> vec(nums, nums + sizeof(nums)/sizeof(int));
+        cout << "find_value_of_max_occur_count=" << find_value_of_max_occur_count(vec) << "\n";
+        int nums2[] = {1};
+        vec.assign(nums2, nums2 + sizeof(nums2)/sizeof(int));
+        cout << "find_value_of_max_occur_count=" << find_value_of_max_occur_count(vec) << "\n";
+        int nums3[] = {1,2};
+        vec.assign(nums3, nums3 + sizeof(nums3)/sizeof(int));
+        cout << "find_value_of_max_occur_count=" << find_value_of_max_occur_count(vec) << "\n";
+        int nums4[] = {1,1};
+        vec.assign(nums4, nums4 + sizeof(nums4)/sizeof(int));
+        cout << "find_value_of_max_occur_count=" << find_value_of_max_occur_count(vec) << "\n";
+        int nums5[] = {1,1,2};
+        vec.assign(nums5, nums5 + sizeof(nums5)/sizeof(int));
+        cout << "find_value_of_max_occur_count=" << find_value_of_max_occur_count(vec) << "\n";
+        int nums6[] = {};
+        vec.assign(nums6, nums6 + sizeof(nums6)/sizeof(int));
+        cout << "find_value_of_max_occur_count=" << find_value_of_max_occur_count(vec) << "\n";
+    }
+    /***
     {/// test b_node ...
         const unsigned NODES_COUNT = 10;
         b_node* nodes[NODES_COUNT];

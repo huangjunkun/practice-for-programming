@@ -96,6 +96,10 @@ pair<int,string> findMostSubstr(const string& str);
 const char* strStr(const char* str, const char* substr);
 char* strStr(char* str, const char* substr);
 
+int str2int(const std::string& buffer );
+std::string find_longest_sequential_digit_substr(const std::string& buffer);
+int find_value_of_max_occur_count(std::vector<int>& nums);
+
 //---------------------------------------------------------------------------
 namespace testDataStruct
 {
